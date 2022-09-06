@@ -24,6 +24,22 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
+  late final _$selectedAtom =
+      Atom(name: 'HomeStoreBase.selected', context: context);
+
+  @override
+  Post? get selected {
+    _$selectedAtom.reportRead();
+    return super.selected;
+  }
+
+  @override
+  set selected(Post? value) {
+    _$selectedAtom.reportWrite(value, super.selected, () {
+      super.selected = value;
+    });
+  }
+
   late final _$getAllPostAsyncAction =
       AsyncAction('HomeStoreBase.getAllPost', context: context);
 
@@ -40,10 +56,36 @@ mixin _$HomeStore on HomeStoreBase, Store {
     return _$goToDetailPageAsyncAction.run(() => super.goToDetailPage(context));
   }
 
+  late final _$HomeStoreBaseActionController =
+      ActionController(name: 'HomeStoreBase', context: context);
+
+  @override
+  void editPost(BuildContext context, Post post) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.editPost');
+    try {
+      return super.editPost(context, post);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateData() {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.updateData');
+    try {
+      return super.updateData();
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-list: ${list}
+list: ${list},
+selected: ${selected}
     ''';
   }
 }

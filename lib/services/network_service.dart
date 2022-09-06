@@ -67,12 +67,12 @@ class NetworkService {
   }
 
   static Map<String, dynamic> paramsUpdate(Post post) {
-    Map<String, String> params = {};
+    Map<String, dynamic> params = {};
     params.addAll({
       'id': post.id.toString(),
       'title': post.title,
       'body': post.body,
-      'userId': post.userId.toString(),
+      'userId': post.userId,
     });
     return params;
   }

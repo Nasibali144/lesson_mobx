@@ -12,6 +12,9 @@ abstract class HomeStoreBase with Store {
   @observable
   ObservableList<Post> list = ObservableList.of([]);
 
+  @observable
+  Post? selected;
+
   @action
   Future<void> getAllPost() async {
     String? response = await NetworkService.GET(NetworkService.API_LIST, NetworkService.paramsEmpty());
@@ -20,7 +23,22 @@ abstract class HomeStoreBase with Store {
 
   @action
   Future<void> goToDetailPage(BuildContext context) async {
+
     await Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailPage()));
     getAllPost();
+  }
+
+  @action
+  void editPost(BuildContext context, Post post) {
+    selected = post;
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailPage())).then((value) {
+      updateData();
+    });
+  }
+
+  @action
+  void updateData () {
+    list = ObservableList.of(list);
+    selected = null;
   }
 }

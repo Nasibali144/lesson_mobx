@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_mobx/pages/home/home_page.dart';
+import 'package:lesson_mobx/services/service_locator.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 

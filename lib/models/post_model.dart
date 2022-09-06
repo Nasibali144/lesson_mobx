@@ -28,4 +28,9 @@ class Post {
 
   @override
   int get hashCode => userId.hashCode;
+
+  @override
+  String toString() {
+    return 'Post{id: $id, title: $title, body: $body, userId: $userId}';
+  }
 }

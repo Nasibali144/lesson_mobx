@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_mobx/pages/detail/detail_store.dart';
+import 'package:lesson_mobx/services/service_locator.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DetailStore store = DetailStore();
+    DetailStore store = locator<DetailStore>();
 
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () => store.createPost(context),
+              onPressed: () => store.savePost(context),
               icon: const Icon(Icons.save)),
         ],
       ),
